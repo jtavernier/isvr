@@ -1,12 +1,15 @@
 clients:
-  - id: "MvcApplication1"
-    name: "MvcApplication1"
+  - id: "mvc"
+    name: "MvcApplication2"
     allowed_grant_types:
       - "implicit"
     redirect_uris:
       - "http://localhost:5002/signin-oidc"
     post_logout_redirect_uris:
       - "http://localhost:5002/signout-callback-oidc"
+    allowed_scopes:
+      - "openid"
+      - "profile"
 
   - id: "ConsoleApplication1"
     name: "ConsoleApplication1"

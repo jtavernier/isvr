@@ -59,7 +59,7 @@ func NewClientWithOpts(ops ...func(*Client) error) (*Client, error) {
 
 	c := &Client{
 		host:   url.Host,
-		scheme: "http",
+		scheme: url.Scheme,
 		client: client,
 	}
 
@@ -71,7 +71,7 @@ func NewClientWithOpts(ops ...func(*Client) error) (*Client, error) {
 func ParseHostURL(host string) (*url.URL, error) {
 	protoAddrParts := strings.SplitN(host, "://", 2)
 	if len(protoAddrParts) == 1 {
-		return nil, fmt.Errorf("unable to parse docker host `%s`", host)
+		return nil, fmt.Errorf("unable to parse host `%s` should be 'https://host:port'", host)
 	}
 
 	var basePath string
