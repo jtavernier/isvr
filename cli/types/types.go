@@ -8,13 +8,14 @@ type Config struct {
 
 // Client the configuration for an identity server resource
 type Client struct {
-	ID                     string   `yaml:",omitempty" json:"clientId,omitempty"`
-	Name                   string   `yaml:",omitempty" json:"clientName,omitempty"`
-	AllowedGrantTypes      []string `yaml:"allowed_grant_types,omitempty" json:"allowedGrantTypes,omitempty"`
-	Secrets                []string `yaml:",omitempty" json:"clientSecrets,omitempty"`
-	AllowedScopes          []string `yaml:"allowed_scopes,omitempty" json:"allowedScopes,omitempty"`
-	RedirectUris           []string `yaml:"redirect_uris,omitempty" json:"redirectUris,omitempty"`
-	PostLogoutRedirectUris []string `yaml:"post_logout_redirect_uris,omitempty" json:"postLogoutRedirectUris,omitempty"`
+	ID                           string   `yaml:",omitempty" json:"clientId,omitempty"`
+	Name                         string   `yaml:",omitempty" json:"clientName,omitempty"`
+	AllowedGrantTypes            []string `yaml:"allowed_grant_types,omitempty" json:"allowedGrantTypes,omitempty"`
+	Secrets                      []string `yaml:",omitempty" json:"clientSecrets,omitempty"`
+	AllowedScopes                []string `yaml:"allowed_scopes,omitempty" json:"allowedScopes,omitempty"`
+	RedirectUris                 []string `yaml:"redirect_uris,omitempty" json:"redirectUris,omitempty"`
+	PostLogoutRedirectUris       []string `yaml:"post_logout_redirect_uris,omitempty" json:"postLogoutRedirectUris,omitempty"`
+	IdentityProviderRestrictions []string `yaml:"identity_provider_restrictions,omitempty" json:"identityProviderRestrictions,omitempty"`
 }
 
 // Resource the configuration for an identity server resource

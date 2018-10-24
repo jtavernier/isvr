@@ -1,6 +1,24 @@
+# -- CLIENTS Declaration -- #
+#
 clients:
-  - id: "mvc"
-    name: "MvcApplication2"
+
+# -- CLIENT CREDENTIAL WORKFLOW (SERVER to SERVER Communication) -- #
+# Declaration of a Console Application with a client_credentials workflow to enable communication with a protected API
+#
+  - id: "ClientCredentialsConsoleApp"
+    name: "ClientCredentialsConsoleApp"
+    allowed_grant_types: 
+      - "client_credentials"
+    secrets:
+      - "K7gNU3sdo+OL0wNhqoVWhr3g6s1xYv72ol/pe/Unols="
+    allowed_scopes:
+      - "ProtectedWebApi:FullAccess"
+
+# -- IMPLICIT WORKFLOW with Azure AD -- #    
+# Declaration of an MVC Application with Implicit Workflow using AAD as Identity Provider
+#
+  - id: "ImplicitAADMvc"
+    name: "Mvc Implicit with AAD"
     allowed_grant_types:
       - "implicit"
     redirect_uris:
@@ -11,42 +29,54 @@ clients:
       - "openid"
       - "profile"
 
-  - id: "ConsoleApplication1"
-    name: "ConsoleApplication1"
-    allowed_grant_types: 
-      - "client_credentials"
+# -- IMPLICIT WORKFLOW with Windows Auth -- #    
+# Declaration of an MVC Application with Implicit Workflow using WindowsAuth as Identity Provider
+#
+  - id: "ImplicitWindowsMvc"
+    name: "Mvc Implicit with windows Auth"
+    allowed_grant_types:
+      - "implicit"
+    identity_provider_restrictions:
+      - "windows"
+    redirect_uris:
+      - "http://localhost:5002/signin-oidc"
+    post_logout_redirect_uris:
+      - "http://localhost:5002/signout-callback-oidc"
+    allowed_scopes:
+      - "openid"
+      - "profile"
+
+
+# -- HYBRID WORKFLOW (USER Authentication + SERVER to SERVER Communication)-- #
+# Declaration of an MVC Application with Hybrid Workflow to authenticate user and access and WebProtectedWebApi
+# Hybrid Workflow is the combination between a client_credentials and implicit Workflow
+#
+  # - id: "HybridMvc"
+  #   name: "HybridMvc"
+  #   allowed_grant_types:
+  #    - "hybrid"
+  #    - "client_credentials"
+  #   redirect_uris:
+  #     - "http://localhost:5003/signin-oidc"
+  #   post_logout_redirect_uris:
+  #     - "http://localhost:5003/signout-callback-oidc"
+  #   allowed_scopes:
+  #     - "openid"
+  #     - "profile"
+  #     - "ProtectedWebApi/FullAccess"
+  #     - "offline_access"
+  #   # Secret is required when using Hybrid Workflow
+  #   secrets:
+  #     - "K7gNU3sdo+OL0wNhqoVWhr3g6s1xYv72ol/pe/Unols="
+
+
+# -- RESOURCES Declaration -- #
+#
+resources:
+  - name: "ProtectedWebApi"
+    description: "A simple ASP.NET Core API"
     secrets:
       - "K7gNU3sdo+OL0wNhqoVWhr3g6s1xYv72ol/pe/Unols="
-    allowed_scopes:
-      - "WebApi1"
-
-resources:
-  - name: "WebApi1"
-    description: "A simple ASP.NET Core API"
-    secrets:
-      - "asecretvalue"
-      - "anothersecretvalue"
     scopes:
-      - name: "Administration"
-        description: "Access to the administration interface"
-      - name: "Finance"
-        description: "Access to the finance data"
-    
-  - name: "WebApi2"
-    description: "A simple ASP.NET Core API"
-    secrets:
-      - "asecretvalue"
-      - "anothersecretvalue"
-    scopes:
-      - name: "Regulatory"
-        description: "Access to the regulatory data"
-  
-  - name: "WebApi3"
-    description: "A simple ASP.NET Core API"
-    secrets:
-      - "asecretvalue"
-      - "anothersecretvalue"
-    scopes:
-      - name: "Webapi3_scope"
-        description: "Access to the regulatory data"
-        
+      - name: "ProtectedWebApi:FullAccess"
+        description: "Access to the administration interface"       

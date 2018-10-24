@@ -8,13 +8,14 @@ import (
 )
 
 const (
-	defaultClientTableFormat = "table {{.ID}}\t{{.Name}}\t{{.NbSecrets}}\t{{.GrantTypes}}\t{{.Scopes}}"
+	defaultClientTableFormat = "table {{.ID}}\t{{.Name}}\t{{.NbSecrets}}\t{{.GrantTypes}}\t{{.IdentityProvider}}\t{{.Scopes}}"
 
-	clientIDHeader         = "ID"
-	clientNameHeader       = "Name"
-	clientScopesHeader     = "Scope"
-	clientGrantTypesHeader = "Grant Types"
-	clientSecretsHeader    = "Nb Secrets"
+	clientIDHeader               = "ID"
+	clientNameHeader             = "Name"
+	clientScopesHeader           = "Scope"
+	clientGrantTypesHeader       = "Grant Types"
+	clientIdentityProviderHeader = "Identity Provider"
+	clientSecretsHeader          = "Nb Secrets"
 )
 
 // NewClientFormat returns a Format for rendering using a Context
@@ -56,11 +57,12 @@ type clientContext struct {
 func newClientContext() *clientContext {
 	clientCtx := clientContext{}
 	clientCtx.header = clientHeaderContext{
-		"ID":         clientIDHeader,
-		"Name":       clientNameHeader,
-		"NbSecrets":  clientSecretsHeader,
-		"GrantTypes": clientGrantTypesHeader,
-		"Scopes":     clientScopesHeader,
+		"ID":               clientIDHeader,
+		"Name":             clientNameHeader,
+		"NbSecrets":        clientSecretsHeader,
+		"GrantTypes":       clientGrantTypesHeader,
+		"IdentityProvider": clientIdentityProviderHeader,
+		"Scopes":           clientScopesHeader,
 	}
 
 	return &clientCtx
@@ -76,6 +78,10 @@ func (c *clientContext) Name() string {
 
 func (c *clientContext) GrantTypes() string {
 	return strings.Join(c.c.AllowedGrantTypes, ",")
+}
+
+func (c *clientContext) IdentityProvider() string {
+	return strings.Join(c.c.IdentityProviderRestrictions, ",")
 }
 
 func (c *clientContext) Scopes() string {
